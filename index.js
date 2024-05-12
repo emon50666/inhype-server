@@ -99,6 +99,19 @@ app.get('/comment',async(req,res)=>{
 
 
 
+  // get e feature blog api
+  app.get('/featureblog',async(req,res)=>{
+    const description = await blogCollection.find().toArray();
+    const sortDesc = description.sort((a,b) =>{
+      return b.Description.split(" ").length - a.Description.split(" ").length;
+
+    });
+    console.log(description)
+    console.log(sortDesc)
+    const topPost = sortDesc.slice(0,10);
+    res.send(topPost)
+  })
+
 
 
 
