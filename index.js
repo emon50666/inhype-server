@@ -41,29 +41,22 @@ app.post('/blog', async (req, res) => {
   const newBlog = req.body;
   console.log(newBlog);
   
-  // Insert the new blog post
   const blogResult = await blogCollection.insertOne(newBlog);
 
-  // Fetch recent blog posts
-  const cursor = blogCollection.find().sort({ date: -1 }).limit(6); // Assuming 'date' field for sorting
+ 
+  const cursor = blogCollection.find().sort({ date: -1 }).limit(6); 
   const recentBlogs = await cursor.toArray();
 
-  // Send both the result of the blog insertion and the recent blog posts in the response
+ 
   res.send({ blogResult, recentBlogs });
 });
 
 // get recent blog posts
 app.get('/blog', async (req, res) => {
-  const cursor = blogCollection.find().sort({ date: -1 }).limit(6); // Assuming 'date' field for sorting
+  const cursor = blogCollection.find().sort({ date: -1 }).limit(6); 
   const result = await cursor.toArray();
   res.send(result);
 });
-
-
-
-
-
-
 
 
 // get a specific blog id api
@@ -75,7 +68,13 @@ app.get('/blog/:id',async(req,res)=>{
 })
 
 
-// // // // comment blog api
+
+
+
+
+
+
+//  // comment blog api
 app.post('/comment',async(req,res)=>{
   const newComment = req.body;
   console.log(newComment)
@@ -84,13 +83,19 @@ app.post('/comment',async(req,res)=>{
   
 })
 
-// // // comment data show api
+//  // comment data show api
 app.get('/comment',async(req,res)=>{
     const cursor = commentCollection.find();
     const result = await cursor.toArray();
     res.send(result)
 })
 
+   // comment specific id api
+   app.get('/comment/:id',async(req,res)=>{
+    console.log(req.params.id)
+    const result = await commentCollection.find({ id: req.params.id}).toArray()
+    res.send(result)
+  })
 
 
 
