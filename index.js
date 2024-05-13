@@ -97,13 +97,6 @@ app.get('/wishlist/:email',async(req,res)=>{
 
 
 
-// get a specific wishlist id api
-// app.get('/wishlist/:id',async(req,res)=>{
-//   const id = req.params.id
-//   const query = {_id: new ObjectId (id)}
-//   const result =  await wishlistCollection.findOne(query)
-//   res.send(result)
-// })
 
 
 
@@ -136,21 +129,7 @@ app.get('/comment',async(req,res)=>{
 
 
 
-  // get e feature blog api
-  // app.get('/featureblog',async(req,res)=>{
-  //   const description = await blogCollection.find().toArray();
-  //   const sortDesc = description.sort((a,b) =>{
-  //     console.log(sortDesc)
-  //     return b.Description.split(" ").length - a.Description.split(" ").length;
-
-  //   });
-    
-  //   console.log(description)
-  //   console.log(sortDesc)
-  //   const topPost = sortDesc.slice(0,10);
-  //   res.send(topPost)
-  // })
-
+  
 
 
 
