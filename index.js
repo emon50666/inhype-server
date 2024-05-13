@@ -34,6 +34,8 @@ async function run() {
 
     const blogCollection = client.db('blogDB').collection('blog')
     const commentCollection = client.db('blogDB').collection('comment')
+    const wishlistCollection = client.db('blogDB').collection('wishlist')
+
  
 
 // add blog api
@@ -67,6 +69,41 @@ app.get('/blog/:id',async(req,res)=>{
   res.send(result)
 })
 
+
+
+// wishlist 
+app.post('/wishlist',async(req,res)=>{
+  const newBlog = req.body;
+  console.log(newBlog)
+  const result = await wishlistCollection.insertOne(newBlog)
+  res.send(result)
+  
+})
+
+// wishlist get api
+app.get('/wishlist',async(req,res)=>{
+  const cursor = wishlistCollection.find();
+  const result = await cursor.toArray();
+  res.send(result)
+})
+
+
+app.get('/wishlist/:email',async(req,res)=>{
+  console.log(req.params.email)
+  const result = await wishlistCollection.find({ userEmail: req.params.email}).toArray()
+  res.send(result)
+})
+
+
+
+
+// get a specific wishlist id api
+// app.get('/wishlist/:id',async(req,res)=>{
+//   const id = req.params.id
+//   const query = {_id: new ObjectId (id)}
+//   const result =  await wishlistCollection.findOne(query)
+//   res.send(result)
+// })
 
 
 
