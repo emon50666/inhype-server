@@ -100,19 +100,49 @@ app.get('/comment',async(req,res)=>{
 
 
   // get e feature blog api
-  app.get('/featureblog',async(req,res)=>{
-    const description = await blogCollection.find().toArray();
-    const sortDesc = description.sort((a,b) =>{
-      return b.Description.split(" ").length - a.Description.split(" ").length;
+  // app.get('/featureblog',async(req,res)=>{
+  //   const description = await blogCollection.find().toArray();
+  //   const sortDesc = description.sort((a,b) =>{
+  //     console.log(sortDesc)
+  //     return b.Description.split(" ").length - a.Description.split(" ").length;
 
-    });
-    console.log(description)
-    console.log(sortDesc)
-    const topPost = sortDesc.slice(0,10);
-    res.send(topPost)
-  })
+  //   });
+    
+  //   console.log(description)
+  //   console.log(sortDesc)
+  //   const topPost = sortDesc.slice(0,10);
+  //   res.send(topPost)
+  // })
 
 
+
+
+  app.get('/featureblog', async (req, res) => {
+    try {
+      
+      const description = await blogCollection.find().toArray();
+  
+      
+      if (description.length === 0) {
+        return res.status(404).json({ error: 'No blog posts found' });
+      }
+  
+    
+      const sortedBlogs = description.sort((a, b) => {
+        return b.Description.split(" ").length - a.Description.split(" ").length;
+      });
+  
+      
+      const topPosts = sortedBlogs.slice(0, 10);
+  
+    
+      res.send(topPosts);
+    } catch (error) {
+      console.error('Error fetching and sorting blog posts:', error);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
+  
 
 
 
