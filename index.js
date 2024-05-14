@@ -61,6 +61,20 @@ app.get('/blog', async (req, res) => {
 });
 
 
+
+
+
+
+// all blog show api
+app.get('/allblogs',async(req,res)=>{
+  const cursor = blogCollection.find();
+  const result = await cursor.toArray();
+  res.send(result)
+})
+
+
+
+
 // get a specific blog id api
 app.get('/blog/:id',async(req,res)=>{
   const id = req.params.id
@@ -132,7 +146,7 @@ app.get('/comment',async(req,res)=>{
   
 
 
-
+// feature blog api
   app.get('/featureblog', async (req, res) => {
     try {
       
@@ -187,15 +201,6 @@ app.get('/',(req,res)=>{
   }
 }
 run().catch(console.dir);
-
-
-
-
-
-
-
-
-
 
 
 
